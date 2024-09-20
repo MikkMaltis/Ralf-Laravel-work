@@ -1,0 +1,16 @@
+name: ralf-first
+recipe: laravel
+config:
+  webroot: public
+  php: '8.2'
+  via: nginx
+  cache: redis
+  xdebug: true
+services:
+  pma:
+    type: phpmyadmin
+    hosts:
+      - database
+proxy:
+  pma:
+    - pma.lndo.site
