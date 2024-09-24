@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tree;
 use Illuminate\Http\Request;
+use Route;
 
 class TreeController extends Controller
 {
@@ -12,8 +13,10 @@ class TreeController extends Controller
      */
     public function index()
     {
-        //
+        $trees = Tree::all();
+        return view('trees.index', compact('trees'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -28,7 +31,14 @@ class TreeController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        Tree::create($request->all());
+
+        return redirect()->route('trees.index')
+            ->with('success', 'Tree created.');
     }
 
     /**
@@ -36,7 +46,7 @@ class TreeController extends Controller
      */
     public function show(Tree $tree)
     {
-        //
+        return view('trees.show', compact('tree'));
     }
 
     /**
@@ -44,7 +54,7 @@ class TreeController extends Controller
      */
     public function edit(Tree $tree)
     {
-        //
+        return view('trees.edit', compact('tree'));
     }
 
     /**
@@ -52,7 +62,14 @@ class TreeController extends Controller
      */
     public function update(Request $request, Tree $tree)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $tree->update($request->all());
+
+        return redirect()->route('trees.index')
+                         ->with('success', 'Tree updated.');
     }
 
     /**
@@ -60,6 +77,9 @@ class TreeController extends Controller
      */
     public function destroy(Tree $tree)
     {
-        //
+        $tree->delete();
+
+        return redirect()->route('trees.index')
+                         ->with('success', 'Tree deleted.');
     }
 }

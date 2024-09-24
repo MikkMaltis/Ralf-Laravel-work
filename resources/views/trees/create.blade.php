@@ -1,3 +1,4 @@
+<h1>Create Tree</h1>
 <form method="POST" action="/tree">
     @csrf
     <div class="form-group">
