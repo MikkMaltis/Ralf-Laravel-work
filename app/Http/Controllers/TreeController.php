@@ -4,13 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Tree;
 use Illuminate\Http\Request;
-use Route;
 
 class TreeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $trees = Tree::all();
@@ -18,17 +15,11 @@ class TreeController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view ('trees.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -41,25 +32,19 @@ class TreeController extends Controller
             ->with('success', 'Tree created.');
     }
 
-    /**
-     * Display the specified resource.
-     */
+ 
     public function show(Tree $tree)
     {
         return view('trees.show', compact('tree'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Tree $tree)
     {
         return view('trees.edit', compact('tree'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, Tree $tree)
     {
         $request->validate([
@@ -72,9 +57,6 @@ class TreeController extends Controller
                          ->with('success', 'Tree updated.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Tree $tree)
     {
         $tree->delete();
